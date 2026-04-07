@@ -7,6 +7,7 @@ import {
   Newspaper,
   CalendarDays,
   Plus,
+  X,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -84,7 +85,7 @@ export default function Home() {
     }
 
     if (!prompt.trim()) {
-      setErrorMessage("Please enter a description.");
+      setErrorMessage("Please enter a caption.");
       return;
     }
 
@@ -93,12 +94,9 @@ export default function Home() {
 
     setTimeout(() => {
       setResult({
-        title: "Generated WonderCapsule",
         description: prompt,
         image: previewUrl,
         date: selectedDate,
-        note:
-          "This is a canned prototype result. The uploaded image, selected date, and prompt are shown in a simulated generated capsule view.",
       });
       setIsProcessing(false);
     }, 1600);
@@ -108,7 +106,7 @@ export default function Home() {
     if (isListening) return;
     setIsListening(true);
     setTimeout(() => {
-      setPrompt("sunrise over soft mountains");
+      setPrompt("Test Caption");
       setIsListening(false);
     }, 1200);
   };
@@ -150,6 +148,20 @@ export default function Home() {
 
     const file = event.dataTransfer.files?.[0];
     readFile(file);
+  };
+
+  const handleRemoveImage = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setUploadedFileName("");
+    setPreviewUrl("");
+    setResult(null);
+    setErrorMessage("");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleReset = () => {
@@ -230,7 +242,16 @@ export default function Home() {
                     >
                       {previewUrl ? (
                         <div className="flex w-full flex-col items-center">
-                          <div className="w-full overflow-hidden rounded-[28px] border border-[#e1d8ce] bg-[#f3eee7]">
+                          <div className="relative w-full overflow-hidden rounded-[28px] border border-[#e1d8ce] bg-[#f3eee7]">
+                            <button
+                              type="button"
+                              onClick={handleRemoveImage}
+                              className="absolute right-3 top-3 z-10 grid h-8 w-8 place-items-center rounded-full border border-[#ead7dc] bg-[#9a5c6b] text-white shadow-sm transition hover:bg-[#8a4f5d]"
+                              aria-label="Remove uploaded image"
+                            >
+                              <X className="h-4 w-4" strokeWidth={2.5} />
+                            </button>
+
                             <img
                               src={previewUrl}
                               alt="Uploaded preview"
@@ -290,7 +311,7 @@ export default function Home() {
                           onKeyDown={(e) => {
                             if (e.key === "Enter") handleSubmit();
                           }}
-                          placeholder={isListening ? "Listening..." : "Enter description"}
+                          placeholder={isListening ? "Listening..." : "Enter caption"}
                           className="flex-1 bg-transparent text-lg outline-none placeholder:text-[#9d958c]"
                         />
 
@@ -349,24 +370,21 @@ export default function Home() {
                     <div className="overflow-hidden rounded-[28px] border border-[#e1d8ce] bg-[#f3eee7]">
                       <img
                         src={result.image}
-                        alt={result.title}
+                        alt="Generated capsule"
                         className="h-[260px] w-full object-cover md:h-[330px]"
                       />
                     </div>
 
                     <div className="mt-5 space-y-3">
                       <p className="text-sm uppercase tracking-[0.28em] text-[#8c837a]">
-                        Generated Result
+                        Generated Capsule
                       </p>
-                      <h2 className="text-2xl font-semibold tracking-[0.08em] text-[#3b3531]">
-                        {result.title}
-                      </h2>
                       <p className="text-base leading-8 text-[#5f5851]">
                         <span className="font-medium text-[#3b3531]">Date:</span>{" "}
                         {formatDisplayDate(result.date)}
                       </p>
                       <p className="text-base leading-8 text-[#5f5851]">
-                        <span className="font-medium text-[#3b3531]">Prompt:</span>{" "}
+                        <span className="font-medium text-[#3b3531]">Caption:</span>{" "}
                         {result.description}
                       </p>
                     </div>

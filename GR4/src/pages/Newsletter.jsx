@@ -12,25 +12,25 @@ export default function Newsletter() {
   const articles = [
     {
       id: 1,
-      title: "Mountain Morning Capsule",
+      date: "03/01",
       body:
-        "A soft sunrise palette, quiet landscapes, and warm colors set the tone for this week’s creative capsule. This placeholder article stands in for curated inspiration and newsletter content.",
+        "Went on this gorgeous mountain hike today with my kids!",
       image:
         "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80",
     },
     {
       id: 2,
-      title: "City Story Collection",
+      date: "03/12",
       body:
-        "This section previews another featured capsule with placeholder text. In the final prototype, this area can highlight user stories, new collections, or community updates tied to the WonderCapsule experience.",
+        "Loved this city trip with my friends! The view is so majestic.",
       image:
         "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80",
     },
     {
       id: 3,
-      title: "Weekend Reflection",
+      date: "03/22",
       body:
-        "A lighter card for quick reading and scanning. It uses realistic layout spacing and visual hierarchy, while the written content remains intentionally shallow for the GR4 prototype stage.",
+        "This road trip was crazy long, but I'm glad I got to travel around the country!",
       image:
         "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
     },
@@ -60,82 +60,45 @@ export default function Newsletter() {
         </header>
 
         <main className="flex-1 py-5">
-          <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-            <div className="flex flex-col gap-6">
-              {[articles[0], articles[2]].map((article, index) => (
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
+            {articles.map((article, index) => {
+              const imageOnRight = index % 2 === 1;
+
+              return (
                 <motion.article
                   key={article.id}
-                  initial={{ opacity: 0, x: -18 }}
+                  initial={{ opacity: 0, x: imageOnRight ? 18 : -18 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.35, delay: index * 0.08 }}
-                  className="rounded-[28px] border border-[#ddd5ca] bg-white/90 p-5 shadow-[0_12px_40px_rgba(55,40,25,0.06)]"
+                  className="rounded-[30px] border border-[#ddd5ca] bg-white/90 p-4 shadow-[0_12px_40px_rgba(55,40,25,0.06)] md:h-[330px] md:p-5"
                 >
-                  <div className="grid grid-cols-[110px_minmax(0,1fr)] items-start gap-5 md:grid-cols-[130px_minmax(0,1fr)]">
-                    <div className="overflow-hidden rounded-[20px] border border-[#e1d8ce] bg-[#f3eee7] shadow-sm">
+                  <div className="flex flex-col gap-5 md:h-full md:flex-row md:items-stretch md:gap-6">
+                    <div
+                      className={`overflow-hidden rounded-[24px] border border-[#e1d8ce] bg-[#f3eee7] shadow-sm md:basis-[58%] ${imageOnRight ? "md:order-2" : "md:order-1"
+                        }`}
+                    >
                       <img
                         src={article.image}
-                        alt={article.title}
-                        className="h-[110px] w-full object-cover md:h-[130px]"
+                        alt={`Memory from ${article.date}`}
+                        className="h-[220px] w-full object-cover md:h-full md:min-h-[280px]"
                       />
                     </div>
 
-                    <div className="space-y-3 pt-1">
-                      <h3 className="text-lg font-semibold tracking-[0.08em] text-[#3b3531] md:text-xl">
-                        {article.title}
-                      </h3>
-                      <div className="space-y-2 text-sm leading-7 text-[#6e655d] md:text-[15px]">
-                        <p>{article.body}</p>
-                        <p>
-                          Placeholder subtext for article preview, summary, and
-                          additional reading details.
-                        </p>
-                        <p>
-                          More placeholder copy can be swapped with final
-                          newsletter content later.
-                        </p>
-                      </div>
+                    <div
+                      className={`flex flex-col justify-center space-y-3 rounded-[22px] border border-[#e8e0d5] bg-[#fcfaf6] px-4 py-4 md:h-full md:basis-[42%] md:px-5 ${imageOnRight ? "md:order-1" : "md:order-2"
+                        }`}
+                    >
+                      <p className="text-lg font-semibold tracking-[0.08em] text-[#3b3531] md:text-xl">
+                        {article.date}
+                      </p>
+                      <p className="text-sm leading-7 text-[#6e655d] md:text-[15px]">
+                        {article.body}
+                      </p>
                     </div>
                   </div>
                 </motion.article>
-              ))}
-            </div>
-
-            <div className="flex items-start justify-center">
-              <motion.article
-                initial={{ opacity: 0, x: 18 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.35, delay: 0.08 }}
-                className="w-full max-w-[620px] rounded-[30px] border border-[#ddd5ca] bg-white/90 p-6 shadow-[0_12px_40px_rgba(55,40,25,0.06)]"
-              >
-                <div className="grid grid-cols-[minmax(0,1fr)_140px] items-center gap-6 md:grid-cols-[minmax(0,1fr)_170px]">
-                  <div className="order-1 space-y-4">
-                    <h3 className="text-xl font-semibold tracking-[0.1em] text-[#3b3531] md:text-2xl">
-                      {articles[1].title}
-                    </h3>
-                    <div className="space-y-3 text-sm leading-8 text-[#6e655d] md:text-[15px]">
-                      <p>{articles[1].body}</p>
-                      <p>
-                        Placeholder text continues here to simulate realistic
-                        reading length for the prototype and support visual
-                        evaluation.
-                      </p>
-                      <p>
-                        This section can later connect to dynamic content, saved
-                        capsules, or editorial updates.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="order-2 overflow-hidden rounded-[22px] border border-[#e1d8ce] bg-[#f3eee7] shadow-sm">
-                    <img
-                      src={articles[1].image}
-                      alt={articles[1].title}
-                      className="h-[150px] w-full object-cover md:h-[190px]"
-                    />
-                  </div>
-                </div>
-              </motion.article>
-            </div>
+              );
+            })}
           </div>
         </main>
 

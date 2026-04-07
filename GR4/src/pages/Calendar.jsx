@@ -23,23 +23,18 @@ export default function Calendar() {
       days: Array.from({ length: 28 }, (_, index) => index + 1),
       events: {
         1: {
-          title: "Pink Landscape Capsule",
           description:
-            "This is a placeholder description of the capsule. In the final version, this area will display the user’s saved text or reflection associated with the selected capsule.",
+            "This road trip was crazy long, but I'm glad I got to travel around the country!",
           image:
             "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
         },
         5: {
-          title: "Work Day with Friends Capsule",
-          description:
-            "This is a placeholder description of the capsule. In the final version, this area will display the user’s saved text or reflection associated with the selected capsule.",
+          description: "",
           image:
             "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80",
         },
         17: {
-          title: "Flower Field Memory Capsule",
-          description:
-            "This is a placeholder description of the capsule. In the final version, this area will display the user’s saved text or reflection associated with the selected capsule.",
+          description: "",
           image:
             "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=900&q=80",
         },
@@ -50,23 +45,18 @@ export default function Calendar() {
       days: Array.from({ length: 28 }, (_, index) => index + 1),
       events: {
         3: {
-          title: "Ocean Capsule",
-          description:
-            "This is a placeholder description of the capsule. In the final version, this area will display the user’s saved text or reflection associated with the selected capsule.",
+          description: "",
           image:
             "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
         },
         12: {
-          title: "City Lights Capsule",
           description:
-            "This is a placeholder description of the capsule. In the final version, this area will display the user’s saved text or reflection associated with the selected capsule.",
+            "Loved this city trip with my friends! The view is so majestic.",
           image:
             "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80",
         },
         22: {
-          title: "Golden Hour Capsule",
-          description:
-            "This is a placeholder description of the capsule. In the final version, this area will display the user’s saved text or reflection associated with the selected capsule.",
+          description: "",
           image:
             "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=900&q=80",
         },
@@ -177,13 +167,10 @@ export default function Calendar() {
                           <div className="overflow-hidden rounded-[14px] border border-[#e1d8ce] bg-[#f3eee7] shadow-sm">
                             <img
                               src={event.image}
-                              alt={event.title}
+                              alt="Saved memory"
                               className="h-14 w-full object-cover md:h-20"
                             />
                           </div>
-                          <p className="line-clamp-2 text-xs leading-5 text-[#645c54] md:text-sm">
-                            {event.title}
-                          </p>
                         </button>
                       ) : (
                         <div className="h-full rounded-[14px] border border-dashed border-[#eee7de] bg-[#fcfaf6]" />
@@ -254,7 +241,7 @@ export default function Calendar() {
                 <div className="overflow-hidden rounded-[24px] border border-[#e1d8ce] bg-[#f3eee7]">
                   <img
                     src={selectedEvent.image}
-                    alt={selectedEvent.title}
+                    alt="Saved memory"
                     className="h-[240px] w-full object-cover md:h-[300px]"
                   />
                 </div>
@@ -264,18 +251,16 @@ export default function Calendar() {
                     Saved Capsule
                   </p>
 
-                  <h2 className="text-2xl font-semibold tracking-[0.08em] text-[#3b3531]">
-                    {selectedEvent.title}
-                  </h2>
-
                   <p className="text-base leading-8 text-[#5f5851]">
                     <span className="font-medium text-[#3b3531]">Date:</span>{" "}
                     {selectedEvent.date}
                   </p>
 
-                  <p className="rounded-[22px] border border-dashed border-[#ddd5ca] bg-[#fcfaf6] px-4 py-3 text-sm leading-7 text-[#6e655d] md:text-[15px]">
-                    {selectedEvent.description}
-                  </p>
+                  {selectedEvent.description ? (
+                    <p className="rounded-[22px] border border-dashed border-[#ddd5ca] bg-[#fcfaf6] px-4 py-3 text-sm leading-7 text-[#6e655d] md:text-[15px]">
+                      {selectedEvent.description}
+                    </p>
+                  ) : null}
                 </div>
               </motion.div>
             </motion.div>
